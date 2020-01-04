@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="view" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.fx.controller.MainController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Cadastros">
+            <items>
+                  <Menu mnemonicParsing="false" text="Cliente">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#abrirClienteListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#abrirClienteNovo" text="Novo" />
+                    </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#abrirLogradouro" text="Logradouro" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirBairro" text="Bairro" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirMunicipio" text="Município" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="miSAIR" mnemonicParsing="false" onAction="#fechar" text="Fechar" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="29.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="8.0" text="Bem-vindo!" />
+         </children>
+      </AnchorPane>
+   </bottom>
+   <center>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema em desenvolvimento" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

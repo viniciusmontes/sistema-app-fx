@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<VBox fx:controller="app.fx.controller.MunicipioController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="69.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="UF" />
+            <ComboBox fx:id="cbUF" layoutX="34.0" layoutY="10.0" prefWidth="150.0" />
+            <Label layoutX="194.0" layoutY="14.0" text="Município" />
+            <TextField fx:id="tfNOME" layoutX="246.0" layoutY="10.0" prefHeight="22.0" prefWidth="342.0" />
+            <Button layoutX="528.0" layoutY="37.0" mnemonicParsing="false" text="Cancelar" />
+            <Button fx:id="btOK" layoutX="489.0" layoutY="37.0" mnemonicParsing="false" text="OK" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tvMUNICIPIOS" prefHeight="339.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Município" />
+          <TableColumn prefWidth="75.0" text="UF" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Alterar" />
+                <MenuItem mnemonicParsing="false" text="Apagar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Selecionar todos" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+   </children>
+</VBox>

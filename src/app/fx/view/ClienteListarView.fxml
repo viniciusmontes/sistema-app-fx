@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.fx.controller.ClienteListarController">
+   <children>
+      <TableView prefHeight="402.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="121.0" text="Cliente" />
+          <TableColumn minWidth="0.0" prefWidth="130.0" text="Endereço" />
+            <TableColumn minWidth="0.0" prefWidth="216.0" text="E-mail" />
+            <TableColumn minWidth="0.0" prefWidth="132.0" text="Contatos" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
