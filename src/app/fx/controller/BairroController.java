@@ -1,6 +1,7 @@
 package app.fx.controller;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
@@ -18,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SelectionModel;
@@ -26,11 +28,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.util.Callback;
 import service.BairroService;
 import service.MunicipioService;
 import service.impl.DefaultBairroService;
 import service.impl.DefaultMunicipioService;
+import utils.Alerts;
 
 @SuppressWarnings({ "deprecation", "unused" })
 public class BairroController {
@@ -162,8 +166,8 @@ public class BairroController {
 			tfNOME.setText(aalterar.getNome());
 			break;
 		default:
-			Dialogs.create().title("[IMPACTA]").message("Favor, selecione somente um bairro para alterar")
-					.showInformation();
+			Alerts.showAlert("Erro", null, "Favor, selecione um bairro para alterar", AlertType.ERROR);
+
 			break;
 		}
 	}
@@ -178,13 +182,14 @@ public class BairroController {
 
 		switch (rows) {
 		case 0:
-			Dialogs.create().title("[IMPACTA]").message("Favor, selecione ao menos 1 bairro para apagar!")
-					.showInformation();
+			Alerts.showAlert("Erro", null, "Selecione ao menos um para apagar", AlertType.ERROR);
 			break;
 		default:
-			Action a = Dialogs.create().title("[IMPACTA]").message("Confirma apagar?").showConfirm();
 
-			if (a == Dialog.ACTION_YES) {
+			Optional<ButtonType> result = Alerts.showConfirmation("Confirmação",
+					"Tem certeza que deseja apagar o Bairro ?");
+
+			if (result.get() == ButtonType.OK) {
 				items.forEach(b -> {
 					try {
 						service.apagar(b);

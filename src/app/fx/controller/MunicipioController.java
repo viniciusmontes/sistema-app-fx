@@ -1,6 +1,7 @@
 package app.fx.controller;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,18 +9,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 
 import service.MunicipioService;
 import service.impl.DefaultMunicipioService;
+import utils.Alerts;
 import domain.exception.MunicipioException;
 import domain.model.Municipio;
 import domain.model.UFVO;
@@ -100,13 +102,13 @@ public class MunicipioController {
 
 		switch (rows) {
 		case 0:
-			Dialogs.create().title("[IMPACTA]").message("Favor, selecione ao menos 1 município para apagar!")
-					.showInformation();
+			Alerts.showAlert("Erro", null, "Selecione ao menos um municipio para apagar", AlertType.ERROR);
 			break;
 		default:
-			Action a = Dialogs.create().title("[IMPACTA]").message("Confirma apagar?").showConfirm();
+			Optional<ButtonType> result = Alerts.showConfirmation("Confirmação",
+					"Tem certeza que deseja apagar o Municipio ?");
 
-			if (a == Dialog.ACTION_YES) {
+			if (result.get() == ButtonType.OK) {
 				items.forEach(m -> {
 					try {
 						service.apagar(m);

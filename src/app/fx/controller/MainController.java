@@ -1,6 +1,7 @@
 package app.fx.controller;
 
 import java.net.URL;
+import java.util.Optional;
 
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
@@ -11,12 +12,14 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utils.Alerts;
 
 @SuppressWarnings("deprecation")
 public class MainController {
@@ -37,8 +40,7 @@ public class MainController {
 		try {
 			abrir("/app/fx/view/MunicipioView.fxml");
 		} catch (Exception cause) {
-			Dialogs.create().title("Cadastro de Municípios").message(cause.getMessage())
-			.showException(cause);
+			Dialogs.create().title("Cadastro de Municípios").message(cause.getMessage()).showException(cause);
 			cause.printStackTrace();
 		}
 	}
@@ -95,11 +97,11 @@ public class MainController {
 	public void fechar(Event e) {
 		Stage s = (Stage) view.getScene().getWindow();
 
-		Action a = Dialogs.create().title("[IMPACTA]").message("Sair agora?").showConfirm();
+		Optional<ButtonType> result = Alerts.showConfirmation("Sistema de cadastro - Vinicius Montes 2020", "Tem certeza que deseja sair ?");
 
-		if (a == Dialog.ACTION_YES) {
+		if (result.get() == ButtonType.OK) {
 			s.close();
-			System.out.println("Bye bye!");
+
 		} else {
 			e.consume();
 		}

@@ -3,36 +3,38 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<VBox fx:controller="app.fx.controller.MunicipioController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.fx.controller.LogradouroController">
    <children>
-      <AnchorPane prefHeight="69.0" prefWidth="600.0">
+      <AnchorPane prefHeight="110.0" prefWidth="600.0">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="UF" />
-            <ComboBox fx:id="cbUF" layoutX="34.0" layoutY="10.0" prefWidth="150.0" />
-            <Label layoutX="194.0" layoutY="14.0" text="Município" />
-            <TextField fx:id="tfNOME" layoutX="246.0" layoutY="10.0" prefHeight="22.0" prefWidth="342.0" />
-            <Button layoutX="528.0" layoutY="37.0" mnemonicParsing="false" text="Cancelar" />
-            <Button fx:id="btOK" layoutX="489.0" layoutY="37.0" mnemonicParsing="false" text="OK" />
+            <Label layoutX="14.0" layoutY="24.0" text="UF : " />
+            <Label layoutX="14.0" layoutY="55.0" text="Bairro :" />
+            <Label layoutX="14.0" layoutY="88.0" text="Logradouro : " />
+            <Label layoutX="175.0" layoutY="24.0" text="Municipio :" />
+            <Button fx:id="btCancelar" layoutX="387.0" layoutY="84.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="CANCELAR" />
+            <Button fx:id="btOK" layoutX="387.0" layoutY="51.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="OK" />
+            <ComboBox fx:id="cbUF" layoutX="61.0" layoutY="20.0" onAction="#listarMunicipios" prefHeight="25.0" prefWidth="91.0" />
+            <ComboBox fx:id="cbBairro" layoutX="61.0" layoutY="51.0" onAction="#listarLogradouro" prefHeight="25.0" prefWidth="228.0" promptText="ESCOLHA" />
+            <ComboBox fx:id="cbMunicipio" layoutX="248.0" layoutY="20.0" onAction="#listarBairro" prefHeight="25.0" prefWidth="228.0" promptText="ESCOLHA" />
+            <TextField fx:id="tfNome" layoutX="86.0" layoutY="84.0" prefHeight="25.0" prefWidth="276.0" />
          </children>
       </AnchorPane>
-      <TableView fx:id="tvMUNICIPIOS" prefHeight="339.0" prefWidth="600.0">
+      <TableView fx:id="tvLOGRADOURO" prefHeight="286.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Município" />
-          <TableColumn prefWidth="75.0" text="UF" />
+          <TableColumn fx:id="tcLogradouro" prefWidth="122.0" text="Logradouro" />
+          <TableColumn fx:id="tcBairro" prefWidth="170.0" text="Bairro" />
+            <TableColumn fx:id="tcMunicipio" prefWidth="186.0" text="Municipio" />
+            <TableColumn fx:id="tcUF" prefWidth="121.0" text="UF" />
         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
          <contextMenu>
             <ContextMenu>
               <items>
-                  <MenuItem mnemonicParsing="false" text="Alterar" />
-                <MenuItem mnemonicParsing="false" text="Apagar" />
+                <MenuItem mnemonicParsing="false" text="Alterar" />
+                  <MenuItem mnemonicParsing="false" onAction="#apagar" text="Apagar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Selecionar todos" />
+                  <MenuItem mnemonicParsing="false" text="Selecionar Todos" />
               </items>
             </ContextMenu>
          </contextMenu>
