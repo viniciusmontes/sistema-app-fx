@@ -2,6 +2,7 @@ package app.fx.controller;
 
 import java.util.Collection;
 
+import domain.model.Bairro;
 import domain.model.EnderecoVO;
 import domain.model.EstadoCivilVO;
 import domain.model.Municipio;
@@ -14,14 +15,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import service.BairroService;
 import service.ClienteService;
 import service.MunicipioService;
+import service.impl.DefaultBairroService;
 import service.impl.DefaultClienteService;
 import service.impl.DefaultMunicipioService;
 
 public class ClienteNovoController {
 
 	private MunicipioService sMUNICIPIO;
+	private BairroService sBAIRRO;
 	private ClienteService service;
 
 	@FXML
@@ -64,7 +68,7 @@ public class ClienteNovoController {
 	private TableColumn<?, ?> tcValor;
 
 	@FXML
-	private ComboBox<?> cbBairro;
+	private ComboBox<Bairro> cbBairro;
 
 	@FXML
 	private TableColumn<?, ?> tcContato;
@@ -88,8 +92,10 @@ public class ClienteNovoController {
 
 	@FXML
 	private void initialize() {
+		
 		service = new DefaultClienteService();
 		sMUNICIPIO = new DefaultMunicipioService();
+		sBAIRRO = new DefaultBairroService();
 
 		cbEstadoCivil.getItems().addAll(EstadoCivilVO.values());
 		cbEstadoCivil.getSelectionModel().select(EstadoCivilVO.ESCOLHA);
@@ -119,4 +125,22 @@ public class ClienteNovoController {
 		}
 	}
 
+	@FXML
+	private void listarBairro(ActionEvent e) {
+		UFVO uf = cbUF.getValue();
+		Municipio municipio = cbMunicipio.getValue();
+		Collection<Bairro> b;
+		ObservableList<Bairro> olbairro;
+
+		try {
+			b = sBAIRRO.listar(municipio, uf);
+			olbairro = cbBairro.getItems();
+
+			olbairro.clear();
+			olbairro.addAll(b);
+
+		} catch (Exception cause) {
+			cause.printStackTrace();
+		}
+	}
 }

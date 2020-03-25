@@ -3,8 +3,6 @@ package app.fx.controller;
 import java.net.URL;
 import java.util.Optional;
 
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 
 import javafx.event.ActionEvent;
@@ -97,7 +95,8 @@ public class MainController {
 	public void fechar(Event e) {
 		Stage s = (Stage) view.getScene().getWindow();
 
-		Optional<ButtonType> result = Alerts.showConfirmation("Sistema de cadastro - Vinicius Montes 2020", "Tem certeza que deseja sair ?");
+		Optional<ButtonType> result = Alerts.showConfirmation("Sistema de cadastro - Vinicius Montes 2020",
+				"Tem certeza que deseja sair ?");
 
 		if (result.get() == ButtonType.OK) {
 			s.close();

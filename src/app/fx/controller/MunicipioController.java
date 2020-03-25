@@ -1,13 +1,25 @@
 package app.fx.controller;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.controlsfx.dialog.Dialogs;
+
+import domain.exception.MunicipioException;
+import domain.model.Municipio;
+import domain.model.UFVO;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -15,16 +27,11 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-
-import org.controlsfx.dialog.Dialogs;
-
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import service.MunicipioService;
 import service.impl.DefaultMunicipioService;
 import utils.Alerts;
-import domain.exception.MunicipioException;
-import domain.model.Municipio;
-import domain.model.UFVO;
 
 @SuppressWarnings("deprecation")
 public class MunicipioController {
@@ -33,6 +40,9 @@ public class MunicipioController {
 
 	@FXML
 	private TextField tfNOME;
+
+	@FXML
+	private TextField tfFILTER;
 
 	@FXML
 	private ComboBox<UFVO> cbUF;
@@ -53,6 +63,9 @@ public class MunicipioController {
 	private Button btCANCELAR;
 
 	@FXML
+	private static ObservableList<Municipio> listItens = FXCollections.observableArrayList();
+
+	@FXML
 	private void initialize() {
 		service = new DefaultMunicipioService();
 
@@ -68,6 +81,65 @@ public class MunicipioController {
 
 		tcMUNICIPIO.setCellValueFactory(v -> new SimpleStringProperty(v.getValue().getNome()));
 		tcUF.setCellValueFactory(v -> new SimpleObjectProperty<UFVO>(v.getValue().getUf()));
+
+		tfFILTER.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (!tfFILTER.getText().toLowerCase().equals("")) {
+
+					tvMUNICIPIOS.setItems(findItems());
+				} else {
+					tvMUNICIPIOS.setItems(listItens);
+
+				}
+
+			}
+		});
+
+		initListerners();
+
+	}
+
+	private void initListerners() {
+		tvMUNICIPIOS.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getClickCount() == 2) {
+					FXMLLoader Loader = new FXMLLoader();
+					Loader.setLocation(getClass().getResource("/app/fx/view/BoxView.fxml"));
+
+					try {
+						Loader.load();
+					} catch (IOException ex) {
+						ex.printStackTrace();
+
+					}
+
+					BoxController alertBoxController = Loader.getController();
+					alertBoxController.setData("" + tvMUNICIPIOS.getSelectionModel().getSelectedItem().getNome(),
+							tvMUNICIPIOS.getSelectionModel().getSelectedItem().getUf());
+					Parent p = Loader.getRoot();
+					Stage stage = new Stage();
+					stage.setScene(new Scene(p));
+					stage.show();
+
+				}
+			}
+
+		});
+
+	}
+
+	@FXML
+	private ObservableList<Municipio> findItems() {
+		ObservableList<Municipio> itensEncontrados = FXCollections.observableArrayList();
+		for (Municipio itens : listItens) {
+			if (itens.getNome().contains(tfFILTER.getText())) {
+				itensEncontrados.add(itens);
+			}
+		}
+		return itensEncontrados;
 	}
 
 	@FXML
@@ -169,4 +241,5 @@ public class MunicipioController {
 			Dialogs.create().title("Cadastro de municípios").message(cause.getMessage()).showWarning();
 		}
 	}
+
 }

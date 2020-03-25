@@ -95,6 +95,7 @@ public class LogradouroController {
 		tcMunicipio.setCellValueFactory(v -> new SimpleStringProperty(v.getValue().getMunicipio().toString()));
 		tcBairro.setCellValueFactory(v -> new SimpleStringProperty(v.getValue().getBairro().toString()));
 		tcLogradouro.setCellValueFactory(v -> new SimpleStringProperty(v.getValue().getNome()));
+
 	}
 
 	private void listar(ActionEvent e) {

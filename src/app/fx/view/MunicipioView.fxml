@@ -5,23 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<VBox fx:controller="app.fx.controller.MunicipioController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.fx.controller.MunicipioController">
    <children>
-      <AnchorPane 
-      		prefHeight="69.0" 
-      		prefWidth="600.0">
+      <AnchorPane prefHeight="69.0" prefWidth="600.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="UF" />
             <ComboBox fx:id="cbUF" layoutX="34.0" layoutY="10.0" prefWidth="150.0" />
             <Label layoutX="194.0" layoutY="14.0" text="Município" />
             <TextField fx:id="tfNOME" layoutX="246.0" layoutY="10.0" prefHeight="22.0" prefWidth="342.0" />
-            <Button fx:id="btCANCELAR" 
-            		layoutX="528.0" 
-            		layoutY="37.0" 
-            		mnemonicParsing="false" 
-            		text="Cancelar" />
+            <Button fx:id="btCANCELAR" layoutX="528.0" layoutY="37.0" mnemonicParsing="false" text="Cancelar" />
             <Button fx:id="btOK" layoutX="489.0" layoutY="37.0" mnemonicParsing="false" text="OK" />
+            <TextField fx:id="tfFILTER" layoutX="272.0" layoutY="38.0" prefHeight="17.0" prefWidth="206.0" promptText="PESQUISAR" />
          </children>
       </AnchorPane>
       <TableView fx:id="tvMUNICIPIOS" prefHeight="339.0" prefWidth="600.0">
@@ -35,13 +29,10 @@
          <contextMenu>
             <ContextMenu>
               <items>
-                  <MenuItem mnemonicParsing="false" text="Alterar" 
-                            onAction="#alterar" />
-                  <MenuItem mnemonicParsing="false" text="Apagar"
-                            onAction="#apagar" />
+                  <MenuItem mnemonicParsing="false" onAction="#alterar" text="Alterar" />
+                  <MenuItem mnemonicParsing="false" onAction="#apagar" text="Apagar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Selecionar todos" 
-                  	        onAction="#selecionarTodos" />
+                  <MenuItem mnemonicParsing="false" onAction="#selecionarTodos" text="Selecionar todos" />
               </items>
             </ContextMenu>
          </contextMenu>
